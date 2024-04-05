@@ -1,0 +1,16 @@
+[
+    {
+    "name":"Owner",
+     "email":"phongram@gmail.com",
+     "phone":"0954295321",
+     "password":"059156"
+
+},
+    {
+    "name":"Manager",
+     "email":"khawram@gmail.com",
+     "phone":"09665853104",
+     "password":"059156"
+
+}
+]

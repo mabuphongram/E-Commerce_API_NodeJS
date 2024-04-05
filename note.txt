@@ -1,0 +1,6 @@
+-> installing dependencies
+    -> npm i express mongoose bcryptjs jsonwebtoken express-file-upload joi dot env
+
+-> Role
+-> Permission
+-> User

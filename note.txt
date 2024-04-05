@@ -1,6 +1,8 @@
 -> installing dependencies
     -> npm i express mongoose bcryptjs jsonwebtoken express-file-upload joi dot env
 
--> Role
--> Permission
--> User
+use redis for login
+role and permission (default migration)
+
+-> npm i redis-commander
+-> npm i async-redis

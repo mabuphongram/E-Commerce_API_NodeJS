@@ -22,7 +22,6 @@ const register = async (req,res,next)=>{
 
 //user login
 const login = async (req,res,next)=>{
-
     let dbUser = await DB.findOne({phone:req.body.phone}).select('-__v -created').populate('roles permits')
     if(dbUser){
         if(Helper.compare(req.body.password ,dbUser.password)){
@@ -30,6 +29,10 @@ const login = async (req,res,next)=>{
             //we need to convert to object format for removing password
             dbUser = dbUser.toObject()
             delete dbUser.password
+
+            //append token
+            dbUser.token = Helper.makeToken(dbUser)
+
             //redis
             Helper.set(dbUser._id,dbUser)
             Helper.fMsg(res,'Login success',dbUser )

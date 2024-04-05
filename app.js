@@ -1,6 +1,6 @@
 require('dotenv').config()
 const express = require('express')
-const { migrate, backup } = require('./migrations/migrator')
+const { migrate, backup, role_permit_migrate } = require('./migrations/migrator')
 app = express()
 mongoose = require('mongoose')
 
@@ -24,4 +24,5 @@ app.use((err, req, res, next) => {
 
 // migrate()
 // backup()
+role_permit_migrate()
 app.listen(process.env.PORT,console.log(`Server is running at port: ${process.env.PORT}`))

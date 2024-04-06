@@ -42,4 +42,15 @@ module.exports = {
       }
     };
   },
+
+  validateRole: (role)=>{
+    return async(req,res,next)=>{
+      let findRole = req.user.roles.find(ro=> ro.name == role)
+      if(findRole){
+        next()
+      } else {
+        next(new Error("You don't have this permission"))
+      }
+    }
+  }
 };

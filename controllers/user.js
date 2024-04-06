@@ -1,6 +1,12 @@
 const Helper = require('../utils/helper')
 const DB = require('../models/user')
+const RoleDB = require('../models/role')
 
+//all users
+const all = async (req,res,next)=>{
+let users = await DB.find()
+Helper.fMsg(res,'All users',users)
+}
 
 //user login
 const register = async (req,res,next)=>{
@@ -45,7 +51,40 @@ const login = async (req,res,next)=>{
  
 }
 
+//add role 
+const addRole = async (req,res,next)=>{
+let dbUser = await DB.findById(req.body.userId)
+let dbRole = await RoleDB.findById(req.body.roleId)
+
+let foundRole = dbUser.roles.find(rid=> rid.equals(dbRole._id))
+if(foundRole) {
+ next(new Error('Role already exist'))
+} else {
+    await DB.findByIdAndUpdate(dbUser._id,{$push:{roles:dbRole._id}})
+    let user = await DB.findById(dbUser._id)
+        Helper.fMsg(res,'user detail after adding role',user)
+}
+}
+
+//remove a role 
+const removeRole = async (req,res,next)=>{
+let dbUser = await DB.findById(req.body.userId)
+let dbRole = await RoleDB.findById(req.body.roleId)
+
+let foundRole = dbUser.roles.find(rid=> rid.equals(dbRole._id))
+
+if(foundRole) {
+    await DB.findByIdAndUpdate(dbUser._id,{$pull:{roles:dbRole._id}})
+    let user = await DB.findById(dbUser._id)
+    Helper.fMsg(res,'user detail after removing role',user)
+}else {
+    next(new Error('Role does not exist'))
+}
+} 
 module.exports = {
+    all,
     register,
-    login
+    login,
+    addRole,
+    removeRole
 }

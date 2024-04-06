@@ -4,6 +4,7 @@ const UserDB = require('../models/user')
 const RoleDB = require('../models/role')
 const PermitDB = require('../models/permit')
 const fs = require('fs') // fire system module for read and write file
+const User = require('../models/user')
 
 //migrating users
 const migrate = () => {
@@ -18,6 +19,7 @@ const migrate = () => {
 
 }
 
+//migrate role and permit
 const role_permit_migrate= ()=>{
 let data = fs.readFileSync('./migrations/role_and_permit.json')
 let rp = JSON.parse(data)
@@ -33,6 +35,17 @@ rp.permits.forEach(async(permit)=>{
 })
 }
 
+//migrate role to owner
+const addOwnerRole = async() =>{
+    let dbOwner = await UserDB.findOne({phone:"09954395321"})
+    let ownerRole = await RoleDB.findOne({name:"Owner"})
+
+    await UserDB.findByIdAndUpdate(dbOwner._id,{$push:{roles:ownerRole._id}})
+}
+
+//
+
+
 //backup user
 const backup = async() =>{
     let users = await UserDB.find()
@@ -42,5 +55,6 @@ const backup = async() =>{
 module.exports = {
     migrate,
     backup,
-    role_permit_migrate
+    role_permit_migrate,
+    addOwnerRole
 }

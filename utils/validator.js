@@ -52,5 +52,34 @@ module.exports = {
         next(new Error("You don't have this permission"))
       }
     }
+  },
+  hasAnyRole :(roles)=>{
+    return async(req,res,next)=>{
+      let bol = false
+      for (let i =0;i<roles.length;i++){
+        let hasRole = req.user.roles.find(ro=> ro.name === roles[i])
+        console.log(hasRole)
+        if(hasRole){
+          bol = true
+          break
+        }
+      }
+      if(bol) next()
+      else next(new Error("You don't have enough role"))
+    }
+  },
+  hasAnyPermit :(permits)=>{
+    return async(req,res,next)=>{
+      let bol = false
+      for (let i =0;i<permits.length;i++){
+        let hasPermit = req.user.permits.find(ro=> ro.name === permits[i])
+        if(hasPermit){
+          bol = true
+          break
+        }
+      }
+      if(bol) next()
+      else next(new Error("You don't have enough permit"))
+    }
   }
 };

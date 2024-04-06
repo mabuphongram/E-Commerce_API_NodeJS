@@ -25,6 +25,14 @@ module.exports = {
         userId: Joi.string().regex(/^[0-9a-fA-F]{24}$/),
         roleId: Joi.string().regex(/^[0-9a-fA-F]{24}$/),
       }),
+    addPermit: Joi.object({
+        userId: Joi.string().regex(/^[0-9a-fA-F]{24}$/),
+        permitId: Joi.string().regex(/^[0-9a-fA-F]{24}$/),
+      }),
+    removePermit: Joi.object({
+        userId: Joi.string().regex(/^[0-9a-fA-F]{24}$/),
+        permitId: Joi.string().regex(/^[0-9a-fA-F]{24}$/),
+      }),
   },
   AllSchema: {
     id: Joi.object({

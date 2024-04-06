@@ -25,5 +25,5 @@ app.use((err, req, res, next) => {
 // migrate()
 // backup()
 // role_permit_migrate()
-addOwnerRole()
+// addOwnerRole()
 app.listen(process.env.PORT,console.log(`Server is running at port: ${process.env.PORT}`))

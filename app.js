@@ -17,6 +17,7 @@ const userRouter = require('./routes/user')
 const categoryRouter = require('./routes/category')
 const subCatRouter = require('./routes/subcat')
 const childCatRouter  = require('./routes/childcat')
+const tagRouter = require('./routes/tag')
 
 app.use('/permits',permitRouter)
 app.use('/roles',roleRouter)
@@ -24,6 +25,7 @@ app.use('/users',userRouter)
 app.use('/cats',categoryRouter)
 app.use('/subcats',subCatRouter)
 app.use('/childcats',childCatRouter)
+app.use('/tags',tagRouter)
 
 app.use((err, req, res, next) => {
     err.status = err.status || 500

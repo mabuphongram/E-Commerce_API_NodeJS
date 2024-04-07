@@ -15,8 +15,37 @@ const add = async (req, res, next) => {
     Helper.fMsg(res, "Child Category added!", dbTag);
   }
 };
-
+const drop = async (req, res, next) => {
+    let dbTag = await DB.findById(req.params.id);
+    if (dbTag) {
+      await DB.findByIdAndDelete(dbTag._id);
+      Helper.fMsg(res, "Tag deleted");
+    } else {
+      next(new Error("No Tag with that id"));
+    }
+  };
+  const get = async (req, res, next) => {
+    let dbTag = await DB.findById(req.params.id);
+    if (dbTag) {
+      Helper.fMsg(res, "Single Tag", dbTag);
+    } else {
+      next(new Error("No Tag with that id"));
+    }
+  };
+  const put = async (req,res,next)=>{
+    let dbTag = await DB.findById(req.params.id)
+    if(dbTag) {
+      await DB.findByIdAndUpdate(dbTag._id,req.body)
+      let result = await DB.findById(dbTag._id)
+      Helper.fMsg(res,'Updated child cat',result)
+    } else {
+     next(new Error('No child category with that ID'))
+    }
+    }
 module.exports = {
     add,
-    all
+    all,
+    drop,
+    get,
+    put
 }

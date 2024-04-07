@@ -9,6 +9,7 @@ const add = async (req,res,next)=>{
     } else {
         let result = await new DB(req.body).save()
         Helper.fMsg(res,'Permission saved!',result)
+       
 
     }
 }

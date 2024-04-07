@@ -6,15 +6,23 @@ let dbCat = await DB.findOne({name:req.body.name})
 if(dbCat){
     next(new Error('Category is already existed'))
 } else {
-    let result = await DB(req.body).save()
+    let result = await new DB(req.body).save()
     Helper.fMsg(res,'category saved',result)
 
 }
 
 }
 const all = async (req,res,next)=>{
-let result = await DB.find()
-Helper.fMsg(res,'All categories',result)
+
+// nested populate 
+let result = await DB.find().populate({
+    path: 'subcats', 
+    populate:{ 
+        path:'childcats',
+        model:'childcat'
+    }
+})
+Helper.fMsg(res,'All  categories',result)
 }
 const get = async (req,res,next)=>{
     let dbCat = await DB.findById(req.params.id)

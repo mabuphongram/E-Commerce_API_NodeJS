@@ -4,7 +4,7 @@ const {Schema} =   mongoose
 const CategorySchema = new Schema({
     name: {type: String, required:true,unique:true},
     image: {type:String,required:true},
-    subcat: [{type:Schema.Types.ObjectId,ref:'subcat'}],
+    subcats: [{type:Schema.Types.ObjectId,ref:'subcat'}],
     created: {type: Date, default: Date.now}
 })
 

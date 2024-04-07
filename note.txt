@@ -6,3 +6,12 @@ role and permission (default migration)
 
 -> npm i redis-commander
 -> npm i async-redis
+
+// nested populate 
+let result = await DB.find().populate({
+    path: 'subcats', // cat နဲ့တိုက်ရိုက်ဆိုင်တဲ့ဟာ
+    populate:{ // cat နဲ့ သွယ်ဝိုက်ဆိုင်တဲ့ဟာ
+        path:'childcats',
+        model:'childcat'
+    }
+})

@@ -18,6 +18,9 @@ const categoryRouter = require('./routes/category')
 const subCatRouter = require('./routes/subcat')
 const childCatRouter  = require('./routes/childcat')
 const tagRouter = require('./routes/tag')
+const deliveryRouter = require('./routes/delivery')
+const warrantyRouter = require('./routes/warranty')
+const productRouter = require('./routes/product')
 
 app.use('/permits',permitRouter)
 app.use('/roles',roleRouter)
@@ -26,6 +29,9 @@ app.use('/cats',categoryRouter)
 app.use('/subcats',subCatRouter)
 app.use('/childcats',childCatRouter)
 app.use('/tags',tagRouter)
+app.use('/deliverys',deliveryRouter)
+app.use('/warranties/',warrantyRouter)
+app.use('/products',productRouter)
 
 app.use((err, req, res, next) => {
     err.status = err.status || 500

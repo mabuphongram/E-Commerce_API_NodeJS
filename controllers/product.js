@@ -59,26 +59,25 @@ const paginate = async (req, res, next) => {
   Helper.fMsg(res,`Paginated Page No : ${reqPage}`, result)
 };
 
-const productByCat = async (req,res,next)=>{
+const filterBy = async (req,res,next)=>{
+  let type = req.params.type
   let page = Number(req.params.page);
   const limit = Number(process.env.PAGE_LIMIT);
 
   const reqPage = page == 1 ? 0 : page - 1;
   const skipCount = limit * reqPage
 
-  let result = await DB.find({cat:req.params.id}).skip(skipCount).limit(limit)
-  Helper.fMsg(res,`Paginated Page No : ${reqPage}`, result)
-}
-
-const productByTag = async (req,res,next)=>{
-  let page = Number(req.params.page);
-  const limit = Number(process.env.PAGE_LIMIT);
-
-  const reqPage = page == 1 ? 0 : page - 1;
-  const skipCount = limit * reqPage
-
-  let result = await DB.find({tag:req.params.id}).skip(skipCount).limit(limit)
-  Helper.fMsg(res,`products by tag `, result)
+  // let filterType = 'cat'
+  // switch(type) {
+  //   case 'cat':filterType = 'cat';break;
+  //   case 'tag':filterType = 'tag';break;
+  //   case 'subcat':filterType = 'subcat';break;
+  //   case 'childcat':filterType = 'childcat';break;
+  // }
+  let filterObj = {}
+  filterObj[`${type}`] = req.params.id
+  let result = await DB.find(filterObj).skip(skipCount).limit(limit)
+  Helper.fMsg(res,'Fiter products', result)
 }
 module.exports = {
   all,
@@ -87,6 +86,5 @@ module.exports = {
   get,
   put,
   paginate,
-  productByCat,
-  productByTag
+  filterBy
 };

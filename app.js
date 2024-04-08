@@ -21,6 +21,7 @@ const tagRouter = require('./routes/tag')
 const deliveryRouter = require('./routes/delivery')
 const warrantyRouter = require('./routes/warranty')
 const productRouter = require('./routes/product')
+const orderRouter = require('./routes/order')
 
 app.use('/permits',permitRouter)
 app.use('/roles',roleRouter)
@@ -32,6 +33,7 @@ app.use('/tags',tagRouter)
 app.use('/deliverys',deliveryRouter)
 app.use('/warranties/',warrantyRouter)
 app.use('/products',productRouter)
+app.use('/orders',orderRouter)
 
 app.use((err, req, res, next) => {
     err.status = err.status || 500

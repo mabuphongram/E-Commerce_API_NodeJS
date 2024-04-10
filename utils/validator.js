@@ -28,7 +28,12 @@ module.exports = {
       let token = req.headers.authorization;
       if (token) {
         token = token.split(" ")[1];
-        let decodedData = jwt.decode(token, process.env.SECRET_KEY);
+
+        //verify depend on expired time provided in encode function 
+        let decodedData = jwt.verify(token, process.env.SECRET_KEY);
+
+        //decode unaware of expired time, it will only decode token
+        // let decodedData = jwt.decode(token, process.env.SECRET_KEY);
 
         let user = await Helper.get(decodedData._id);
         if (user) {
